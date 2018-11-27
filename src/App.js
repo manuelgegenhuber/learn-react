@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import './Person/Person.css';
 //impoerting person and using it as own tag!!
 import Person from './Person/Person';
 
@@ -34,10 +35,21 @@ class App extends Component {
     }
 
     render() {
+
+        //inline styling (scoped to the component but some restriction)
+        const style = {
+            backgroundColor: 'white',
+            font: 'inherit',
+            border: '1px solid blue',
+            padding: '8px',
+            cursor: 'pointer'
+        };
+
         return (
             <div className = "App" >
                 <h1 > Hi, I 'm a react app!</h1> 
-                <button onClick={this.switchNameHandler.bind(this, 'Viktor')}>Switch Name</button>
+                {/* Inline styling on Button */}
+                <button style={style} onClick={this.switchNameHandler.bind(this, 'Viktor')}>Switch Name</button>
                 <Person
                  name={this.state.persons[0].name} 
                  age={this.state.persons[0].age}></Person>
