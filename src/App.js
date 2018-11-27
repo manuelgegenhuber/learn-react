@@ -11,7 +11,8 @@ class App extends Component {
             {name: 'dani', age: 99},
             {name: 'viktor', age: 101},
             {name: 'Mani', age: 66}
-        ]
+        ],
+        showPersons: false
     }
 
     switchNameHandler = (newName) =>{
@@ -34,6 +35,11 @@ class App extends Component {
         });
     }
 
+    togglePersonHandler = () => {
+        const doesShow = this.state.showPersons; /*set doesShow to shoePerson (true or false)*/
+        this.setState({showPersons: !doesShow}); /*set shoePerson to opposite of doesShow (revert true and false)*/
+    }
+
     render() {
 
         //inline styling (scoped to the component but some restriction)
@@ -49,18 +55,25 @@ class App extends Component {
             <div className = "App" >
                 <h1 > Hi, I 'm a react app!</h1> 
                 {/* Inline styling on Button */}
-                <button style={style} onClick={this.switchNameHandler.bind(this, 'Viktor')}>Switch Name</button>
-                <Person
-                 name={this.state.persons[0].name} 
-                 age={this.state.persons[0].age}></Person>
-                <Person 
-                name={this.state.persons[1].name} 
-                age={this.state.persons[1].age}
-                click={() => this.switchNameHandler('Somebody else')}>My Hobbies: Racing!</Person>
-                <Person 
-                name={this.state.persons[2].name}
-                age={this.state.persons[2].age}
-                changed={this.nameChangedHandler}></Person>
+                <button style={style}
+                 onClick={this.togglePersonHandler}>Switch Visibility</button>
+
+                {/* statement ? true : false - as if! because normal if block is not possible*/}
+                { this.state.showPersons ?
+                <div>
+                    <Person
+                    name={this.state.persons[0].name} 
+                    age={this.state.persons[0].age}></Person>
+                    <Person 
+                    name={this.state.persons[1].name}
+                    age={this.state.persons[1].age}
+                    click={() => this.switchNameHandler('Somebody else')}>My Hobbies: Racing!</Person>
+                    <Person 
+                    name={this.state.persons[2].name}
+                    age={this.state.persons[2].age}
+                    changed={this.nameChangedHandler}></Person>
+                </div> : null
+            }
             </div>
         );
 
