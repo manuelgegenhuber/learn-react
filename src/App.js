@@ -55,11 +55,11 @@ class App extends Component {
 
         //inline styling (scoped to the component but some restriction)
         const style = {
-            backgroundColor: 'white',
+            backgroundColor: 'green',
             font: 'inherit',
             border: '1px solid blue',
             padding: '8px',
-            cursor: 'pointer'
+            cursor: 'pointer',
         };
 
         //if state.showPersons = false -> render null (nothing)
@@ -81,11 +81,23 @@ class App extends Component {
                     })}
                 </div>
             );
+
+            style.backgroundColor = 'red';
+        }
+
+        const classes = [];
+
+        if(this.state.persons.length <= 2){
+            classes.push('red');
+        }
+        if(this.state.persons.length <= 1){
+            classes.push('bold');
         }
 
         return (
-            <div className = "App" >
+                <div className = "App" >
                 <h1 > Hi, I 'm a react app!</h1> 
+                <p className={classes.join(' ')}>This is really working!</p>
                 {/* Inline styling on Button */}
                 <button style={style}
                  onClick={this.togglePersonHandler}>Switch Visibility</button>
