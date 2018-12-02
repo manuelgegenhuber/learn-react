@@ -6,6 +6,24 @@ import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit'
 
 class App extends Component {
+
+
+    constructor(props){
+        //super(props) is necessary for the constructor to work
+        super(props);
+        console.log(`[App.js] - Inside constructor()
+         Props: `, props);
+    }
+
+    componentWillMount(){
+        console.log(`[App.js] - Inside componentWillMount()
+        `);
+    }
+
+    componentDidMount(){
+        console.log(`[App.js] - Inside componentDidMount()`);
+    }
+
     //state - only possible if class extends Component
     state = {
         persons: [
@@ -54,6 +72,8 @@ class App extends Component {
     //to a value we want to have depending on the state
     render() {
 
+         console.log(`[App.js] - Inside render()`);
+        
         //if state.showPersons = false -> render null (nothing)
         let persons = null;
 
