@@ -3,7 +3,9 @@ import classes from './App.css';
 import '../components/Persons/Person/Person.css';
 //impoerting person and using it as own tag!!
 import Persons from '../components/Persons/Persons';
-import Cockpit from '../components/Cockpit/Cockpit'
+import Cockpit from '../components/Cockpit/Cockpit';
+import Aux from '../hoc/Auxillary';
+import withClass from '../hoc/withClass';
 
 class App extends PureComponent {
 
@@ -39,7 +41,8 @@ class App extends PureComponent {
             {id: 'ergg5',name: 'viktor', age: 101},
             {id: 'ergeg17b',name: 'Mani', age: 66}
         ],
-        showPersons: false
+        showPersons: false,
+        toggleClickCounter: 0
     };
 
     deletePersonHandler = (personIndex) => {
@@ -71,8 +74,14 @@ class App extends PureComponent {
       }
 
     togglePersonHandler = () => {
-        const doesShow = this.state.showPersons; /*set doesShow to shoePerson (true or false)*/
-        this.setState({showPersons: !doesShow}); /*set shoePerson to opposite of doesShow (revert true and false)*/
+        //correct way of updating state if you need to acces prev state
+        this.setState((prevState, props) =>{
+            return {
+                showPersons: !prevState.showPersons,
+                toggleClickCounter: prevState.toggleClickCounter + 1
+            }
+        });
+             
     };
 
     //everytime react updates dom -> the whole render()- Method gets triggered
@@ -95,16 +104,16 @@ class App extends PureComponent {
         }
 
         return (
-                <div className = {classes.App} >
-                <button onClick={() => {this.setState({showPersons: true})}}>Show Persons</button>
-                <Cockpit
+                <Aux>
+                    <button onClick={() => {this.setState({showPersons: true})}}>Show Persons</button>
+                    <Cockpit
                     personCount={this.state.persons.length}
                     click={this.togglePersonHandler}
                     showPersons={this.state.showPersons}
-                />
-                {/* statement ? true : false - as if! because normal if block is not possible*/}
-                {persons}
-            </div>
+                    />
+                    {/* statement ? true : false - as if! because normal if block is not possible*/}
+                    {persons}
+                </Aux>
         );
 
         //behind the scene
@@ -112,4 +121,4 @@ class App extends PureComponent {
     }
 }
 
-export default App;
+export default withClass(App, classes.App);

@@ -1,5 +1,10 @@
 import React, {Component} from 'react';
-import classes from './Person.css'
+/**Type validation module prop types */
+import PropTypes from 'prop-types';
+
+import classes from './Person.css';
+import Aux from '../../../hoc/Auxillary';
+import withClass from '../../../hoc/withClass';
 
 class Person extends Component{
 
@@ -17,6 +22,9 @@ class Person extends Component{
 
     componentDidMount(){
         console.log(`[Person.js] - Inside componentDidMount()`);
+        if(this.inputElement.value === 'viktor'){
+            this.inputElement.focus();
+        }
     }
 
     render(){
@@ -24,15 +32,23 @@ class Person extends Component{
         console.log(`[Person.js] - Inside render()`);
 
         return(
-            <div className={classes.Person}>
+            <Aux>
                 <p>Hey I'm {this.props.name},</p>
                 <p>who's {this.props.age} years old!</p>
                 <p>{this.props.children}</p>
-                <input type="text" onChange={this.props.changed} value={this.props.name}/>
+                {/** ref is only available in statefull components inputElements (contains input element) gets created in render*/}
+                <input ref={(input) => {this.inputElement = input}} type="text" onChange={this.props.changed} value={this.props.name}/>
                 <button onClick={this.props.click}>Delete</button>
-            </div>
+            </Aux>
         );
     }
 }
+//here propTypes small!! -> func
+Person.propTypes = {
+    click: PropTypes.func,
+    name: PropTypes.string,
+    age: PropTypes.number,
+    changed: PropTypes.func
+};
 
-export default Person;
+export default withClass(Person, classes.Person);
