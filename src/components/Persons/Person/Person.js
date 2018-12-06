@@ -13,6 +13,7 @@ class Person extends Component{
         super(props);
         console.log(`[Person.js] - Inside constructor()
          Props: `, props);
+         this.inputElement = React.createRef();
     }
 
     componentWillMount(){
@@ -22,9 +23,13 @@ class Person extends Component{
 
     componentDidMount(){
         console.log(`[Person.js] - Inside componentDidMount()`);
-        if(this.inputElement.value === 'viktor'){
-            this.inputElement.focus();
+        if(this.inputElement.current.value === 'viktor'){
+            this.focus();
         }
+    }
+
+    focus(){
+        this.inputElement.current.focus();
     }
 
     render(){
@@ -37,7 +42,7 @@ class Person extends Component{
                 <p>who's {this.props.age} years old!</p>
                 <p>{this.props.children}</p>
                 {/** ref is only available in statefull components inputElements (contains input element) gets created in render*/}
-                <input ref={(input) => {this.inputElement = input}} type="text" onChange={this.props.changed} value={this.props.name}/>
+                <input ref={this.inputElement} type="text" onChange={this.props.changed} value={this.props.name}/>
                 <button onClick={this.props.click}>Delete</button>
             </Aux>
         );

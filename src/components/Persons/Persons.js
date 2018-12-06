@@ -15,6 +15,7 @@ class Persons extends PureComponent{
         super(props);
         console.log(`[Persons.js] - Inside constructor()
          Props: `, props);
+         this.lastPersonRef = React.createRef();
     }
 
 
@@ -76,6 +77,17 @@ class Persons extends PureComponent{
     }
 
     /*
+        DO:     Cause Side effects
+        DON'T:  Update State (or it triggers a re-render -> perfomance)
+    */
+
+   componentDidMount(){
+        console.log(`[Persons.js] - Inside componentDidMount()`);
+        
+        this.lastPersonRef.current.focus();
+    }
+
+    /*
         Prepare & Structure your JSX Code
     */
     render(){
@@ -89,21 +101,12 @@ class Persons extends PureComponent{
                         click={() => {this.props.clicked(index)}}
                         name={person.name}
                         age={person.age}
+                        ref={this.lastPersonRef}
                         key={person.id}
                         changed={(event) => {this.props.changed(event, person.id)}} />
                 })}
             </div>
         );
-    }
-
-
-    /*
-        DO:     Cause Side effects
-        DON'T:  Update State (or it triggers a re-render -> perfomance)
-    */
-
-    componentDidMount(){
-        console.log(`[Persons.js] - Inside componentDidMount()`);
     }
 } 
 
