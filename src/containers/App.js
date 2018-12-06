@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import classes from './App.css';
 import '../components/Persons/Person/Person.css';
 //impoerting person and using it as own tag!!
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit'
 
-class App extends Component {
+class App extends PureComponent {
 
 
     constructor(props){
@@ -23,6 +23,14 @@ class App extends Component {
     componentDidMount(){
         console.log(`[App.js] - Inside componentDidMount()`);
     }
+
+    /**
+     * shouldComponentUpdate(nextProps, nextState){
+        console.log(`[App.js] - Inside shouldComponentUpdate()`);
+        return nextState.person !== this.state.persons ||
+        nextState.showPersons !== this.state.showPersons;
+    }
+     */
 
     //state - only possible if class extends Component
     state = {
@@ -88,6 +96,7 @@ class App extends Component {
 
         return (
                 <div className = {classes.App} >
+                <button onClick={() => {this.setState({showPersons: true})}}>Show Persons</button>
                 <Cockpit
                     personCount={this.state.persons.length}
                     click={this.togglePersonHandler}

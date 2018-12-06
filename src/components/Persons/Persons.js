@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import Person from './Person/Person';
 
 
-class Persons extends Component{
+class Persons extends PureComponent{
 
     /*
         Call super(props)
@@ -43,12 +43,17 @@ class Persons extends Component{
      * return false to not update and true to update
      */
 
-    shouldComponentUpdate(nextProps, nextState){
+    /**
+     * 
+     *shouldComponentUpdate(nextProps, nextState){
         console.log('[Update Person.js] Inside shouldComponentUpdate');
         console.dir(nextProps);
         console.dir(nextState);
-        return nextProps.persons !== this.props.persons;
+        return nextProps.persons !== this.props.persons ||
+        nextProps.changed !== this.props.changed ||
+        nextProps.clicked !== this.props.clicked;
     }
+     */
 
     /**
      * DO:      Sync State to Props
