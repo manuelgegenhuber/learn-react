@@ -56,6 +56,30 @@ class App extends PureComponent {
         this.setState({persons: persons});
     };
 
+    componentWillUpdate(nextProps, nextState){
+        console.log("[UPDATE App.js] - Inside componentWillUpdate",
+        nextProps,
+        nextState);
+    }
+
+    static getDerivedStateFromProps(nextProps, prevState){
+        console.log("[UPDATE App.js] - Inside getDerivedStateFromProps",
+        nextProps,
+        prevState);
+
+        return prevState;
+    }
+
+    getSnapshotBeforeUpdate(){
+        console.log("[UPDATE App.js] - Inside getSnapshotBeforeUpdate");
+        return null;
+    }
+
+    componentDidUpdate(nextProps, nextState){
+        console.log("[UPDATE App.js] - Inside componentDidUpdate",
+        nextProps,
+        nextState);
+    }
 
     nameChangedHandler = ( event, id ) => {
         const personIndex = this.state.persons.findIndex(p => {
