@@ -27,6 +27,7 @@ const cockpit = (props) => {
                 {/* This is a comment in jsx */}
                 <button className={btnClass}
                  onClick={props.click}>Switch Visibility</button>
+                 <button onClick={props.login}>Log in</button>
             </div>
         </>
     );

@@ -7,6 +7,8 @@ import Cockpit from '../components/Cockpit/Cockpit';
 import Aux from '../hoc/Auxillary';
 import withClass from '../hoc/withClass';
 
+export const AuthContext = React.createContext(false);
+
 class App extends PureComponent {
 
 
@@ -42,7 +44,8 @@ class App extends PureComponent {
             {id: 'ergeg17b',name: 'Mani', age: 66}
         ],
         showPersons: false,
-        toggleClickCounter: 0
+        toggleClickCounter: 0,
+        authenticated: false
     };
 
     deletePersonHandler = (personIndex) => {
@@ -84,6 +87,14 @@ class App extends PureComponent {
              
     };
 
+    loginHandler = () =>{
+        this.setState((prevState, props) =>{
+            return {
+                authenticated: true
+            }
+        });
+    }
+
     //everytime react updates dom -> the whole render()- Method gets triggered
     //we take advantage here by definin Persons and in the if set the person
     //to a value we want to have depending on the state
@@ -110,9 +121,10 @@ class App extends PureComponent {
                     personCount={this.state.persons.length}
                     click={this.togglePersonHandler}
                     showPersons={this.state.showPersons}
+                    login={this.loginHandler}
                     />
                     {/* statement ? true : false - as if! because normal if block is not possible*/}
-                    {persons}
+                    <AuthContext.Provider value={this.state.authenticated}>{persons}</AuthContext.Provider>
                 </Aux>
         );
 
